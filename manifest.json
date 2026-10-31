@@ -1,0 +1,11 @@
+{
+    "name": "Bagasan Rice Business",
+    "short_name": "Bagasan",
+    "description": "Rice Business Management System",
+    "start_url": "./index.html",
+    "scope": "./",
+    "display": "standalone",
+    "orientation": "portrait",
+    "background_color": "#f4f6f4",
+    "theme_color": "#1e4d36"
+}

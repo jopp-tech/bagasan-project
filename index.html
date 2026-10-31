@@ -1,0 +1,390 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <link rel="manifest" href="./manifest.json">
+    <meta name="theme-color" content="#1e4d36">
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Bagasan | Rice Business Management</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="app">
+
+        <!-- SIDEBAR -->
+        <aside class="sidebar">
+
+            <div class="brand">
+                <h2>🌾 Bagasan</h2>
+                <p>Rice Business Management</p>
+            </div>
+
+            <nav>
+                <button class="nav-btn active" data-page="dashboard">Dashboard</button>
+                <button class="nav-btn" data-page="inventory">Inventory</button>
+                <button class="nav-btn" data-page="sales">Sales</button>
+                <button class="nav-btn" data-page="restock">Restocking</button>
+                <button class="nav-btn" data-page="expenses">Expenses</button>
+                <button class="nav-btn" data-page="customers">Customers & Debts</button>
+                <button class="nav-btn" data-page="backup">Backup & Restore</button>
+            </nav>
+
+            <div class="sidebar-footer">
+                <p>Bagasan v1.0</p>
+                <small>Rice Business System</small>
+            </div>
+
+        </aside>
+
+
+        <!-- MAIN CONTENT -->
+        <main class="main-content">
+
+            <header class="topbar">
+                <div>
+                    <h1 id="page-title">Dashboard</h1>
+                    <p>Welcome to your rice business management system.</p>
+                </div>
+
+                <span class="status">● Offline Ready</span>
+            </header>
+
+
+            <!-- DASHBOARD -->
+            <section id="dashboard" class="page active">
+
+                <div class="stats-grid">
+
+                    <div class="stat-card">
+                        <p>Total Inventory</p>
+                        <h2 id="total-stock">0 kg</h2>
+                    </div>
+
+                    <div class="stat-card">
+                        <p>Today's Sales</p>
+                        <h2 id="today-sales">₱0.00</h2>
+                    </div>
+
+                    <div class="stat-card">
+                        <p>Total Expenses</p>
+                        <h2 id="total-expenses">₱0.00</h2>
+                    </div>
+
+                    <div class="stat-card">
+                        <p>Unpaid Debts</p>
+                        <h2 id="total-debts">₱0.00</h2>
+                    </div>
+
+                </div>
+
+                <div class="panel">
+                    <h2>Inventory Overview</h2>
+
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Rice Name</th>
+                                    <th>Stock (kg)</th>
+                                    <th>Equivalent Sacks</th>
+                                    <th>Price/kg</th>
+                                </tr>
+                            </thead>
+                            <tbody id="dashboard-inventory"></tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="panel">
+                    <h2>Recent Sales</h2>
+
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Rice</th>
+                                    <th>Quantity</th>
+                                    <th>Total</th>
+                                    <th>Payment</th>
+                                </tr>
+                            </thead>
+                            <tbody id="recent-sales"></tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </section>
+
+
+            <!-- INVENTORY -->
+            <section id="inventory" class="page">
+
+                <div class="panel">
+                    <h2>Add Rice Product</h2>
+
+                    <form id="inventory-form">
+
+                        <label>Rice Name</label>
+                        <input type="text" id="rice-name" required>
+
+                        <label>Sack Size (kg)</label>
+                        <input type="number" id="sack-size" value="50" min="0.01" step="any" required>
+
+                        <label>Initial Stock (kg)</label>
+                        <input type="number" id="initial-stock" min="0" step="any" required>
+
+                        <label>Cost per kg (₱)</label>
+                        <input type="number" id="cost-price" min="0" step="any" required>
+
+                        <label>Selling Price per kg (₱)</label>
+                        <input type="number" id="selling-price" min="0" step="any" required>
+
+                        <button type="submit">Add Rice Product</button>
+
+                    </form>
+                </div>
+
+                <div class="panel">
+                    <h2>Rice Inventory</h2>
+
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Rice Name</th>
+                                    <th>Stock</th>
+                                    <th>Sack Equivalent</th>
+                                    <th>Cost/kg</th>
+                                    <th>Selling/kg</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="inventory-table"></tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </section>
+
+
+            <!-- SALES -->
+            <section id="sales" class="page">
+
+                <div class="panel">
+                    <h2>Record New Sale</h2>
+
+                    <form id="sales-form">
+
+                        <label>Rice Product</label>
+                        <select id="sale-product" required></select>
+
+                        <label>Quantity (kg)</label>
+                        <input type="number" id="sale-quantity" min="0.01" step="any" required>
+
+                        <label>Payment Type</label>
+                        <select id="payment-type">
+                            <option value="Cash">Cash</option>
+                            <option value="Partial">Partial Payment</option>
+                            <option value="Utang">Utang (Unpaid)</option>
+                        </select>
+
+                        <label>Customer Name</label>
+                        <input type="text" id="sale-customer" placeholder="Customer name">
+
+                        <label>Amount Paid (₱)</label>
+                        <input type="number" id="amount-paid" min="0" step="any" value="0">
+
+                        <button type="submit">Save Sale</button>
+
+                    </form>
+                </div>
+
+                <div class="panel">
+                    <h2>Sales History</h2>
+
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Customer</th>
+                                    <th>Rice</th>
+                                    <th>Quantity</th>
+                                    <th>Total</th>
+                                    <th>Paid</th>
+                                    <th>Balance</th>
+                                </tr>
+                            </thead>
+                            <tbody id="sales-table"></tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </section>
+
+
+            <!-- RESTOCKING -->
+            <section id="restock" class="page">
+
+                <div class="panel">
+                    <h2>Record Restocking</h2>
+
+                    <form id="restock-form">
+
+                        <label>Rice Product</label>
+                        <select id="restock-product" required></select>
+
+                        <label>Supplier Name</label>
+                        <input type="text" id="supplier-name" required>
+
+                        <label>Quantity Received (kg)</label>
+                        <input type="number" id="restock-quantity" min="0.01" step="any" required>
+
+                        <label>Cost per kg (₱)</label>
+                        <input type="number" id="restock-cost" min="0" step="any" required>
+
+                        <button type="submit">Save Restocking</button>
+
+                    </form>
+                </div>
+
+                <div class="panel">
+                    <h2>Restocking History</h2>
+
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Rice</th>
+                                    <th>Supplier</th>
+                                    <th>Quantity</th>
+                                    <th>Total Cost</th>
+                                </tr>
+                            </thead>
+                            <tbody id="restock-table"></tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </section>
+
+
+            <!-- EXPENSES -->
+            <section id="expenses" class="page">
+
+                <div class="panel">
+                    <h2>Record Business Expense</h2>
+
+                    <form id="expense-form">
+
+                        <label>Expense Description</label>
+                        <input type="text" id="expense-description" required>
+
+                        <label>Amount (₱)</label>
+                        <input type="number" id="expense-amount" min="0.01" step="any" required>
+
+                        <button type="submit">Save Expense</button>
+
+                    </form>
+                </div>
+
+                <div class="panel">
+                    <h2>Expense History</h2>
+
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Description</th>
+                                    <th>Amount</th>
+                                </tr>
+                            </thead>
+                            <tbody id="expenses-table"></tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </section>
+
+
+            <!-- CUSTOMERS -->
+            <section id="customers" class="page">
+
+                <div class="panel">
+                    <h2>Customer Debts</h2>
+
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Customer</th>
+                                    <th>Rice</th>
+                                    <th>Total Sale</th>
+                                    <th>Paid</th>
+                                    <th>Balance</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="debts-table"></tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </section>
+
+
+            <!-- BACKUP -->
+            <section id="backup" class="page">
+
+                <div class="panel">
+                    <h2>Backup Your Data</h2>
+
+                    <p>Download a copy of your Bagasan records as a JSON file.</p>
+
+                    <button id="export-btn">Download Backup</button>
+                </div>
+
+                <div class="panel">
+                    <h2>Restore Your Data</h2>
+
+                    <p>Import a previous Bagasan backup.</p>
+
+                    <input type="file" id="import-file" accept=".json,application/json">
+
+                    <button id="import-btn">Restore Backup</button>
+                </div>
+
+                <div class="panel warning">
+                    <h2>Danger Zone</h2>
+
+                    <p>This will permanently clear records in this browser.</p>
+
+                    <button id="clear-btn" class="danger-btn">
+                        Clear All Data
+                    </button>
+                </div>
+
+            </section>
+
+            <footer>
+                <p>Bagasan © 2026 | Built for your rice business</p>
+            </footer>
+
+        </main>
+
+    </div>
+
+    <script src="script.js"></script>
+
+</body>
+</html>
